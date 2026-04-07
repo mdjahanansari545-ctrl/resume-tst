@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sassy – Cool Bottles Delivered to Your Door</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:ital,wght@0,400;0,600;0,800;1,400;1,700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --ocean: #0077b6;
+    --sky: #48cae4;
+    --foam: #90e0ef;
+    --sand: #ffd166;
+    --coral: #ff6b6b;
+    --white: #f0faff;
+    --dark: #023e5c;
+    --text: #1a3c50;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Nunito',sans-serif;
+    background:var(--white);
+    color:var(--text);
+    overflow-x:hidden;
+  }
+
+  /* ── HEADER ── */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(0,119,182,0.92);
+    backdrop-filter:blur(10px);
+    display:flex;align-items:center;justify-content:space-between;
+    padding:12px 24px;
+    box-shadow:0 2px 20px rgba(0,0,0,0.2);
+  }
+  .logo{
+    font-family:'Pacifico',cursive;
+    font-size:1.8rem;color:#fff;
+    letter-spacing:1px;
+    text-shadow:2px 2px 0 rgba(0,0,0,0.15);
+  }
+  .tagline{
+    font-size:0.75rem;color:var(--foam);
+    font-style:italic;font-weight:600;
+    display:none;
+  }
+  @media(min-width:480px){.tagline{display:block}}
+  .header-right{display:flex;align-items:center;gap:12px}
+  .wa-header{
+    background:var(--sand);color:var(--dark);
+    border:none;border-radius:50px;padding:7px 14px;
+    font-family:'Nunito',sans-serif;font-weight:800;font-size:0.8rem;
+    cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:5px;
+    transition:transform 0.2s,box-shadow 0.2s;
+  }
+  .wa-header:hover{transform:scale(1.05);box-shadow:0 4px 12px rgba(0,0,0,0.2)}
+
+  /* ── HERO ── */
+  .hero{
+    min-height:100vh;
+    background:url('https://i.ibb.co/39kNNzSd/human-hand-holding-bottle-water.jpg') center/cover no-repeat;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;
+    padding:100px 20px 40px;
+    position:relative;
+  }
+  .hero::before{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(160deg,rgba(0,80,140,0.65) 0%,rgba(0,180,220,0.35) 60%,rgba(255,180,0,0.25) 100%);
+  }
+  .hero-content{position:relative;z-index:1}
+  .hero-badge{
+    display:inline-block;
+    background:var(--sand);color:var(--dark);
+    border-radius:50px;padding:5px 18px;
+    font-weight:800;font-size:0.8rem;letter-spacing:1px;
+    margin-bottom:16px;animation:bounce 2s infinite;
+  }
+  @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+  .hero h1{
+    font-family:'Pacifico',cursive;
+    font-size:clamp(2.5rem,8vw,5rem);
+    color:#fff;line-height:1.1;
+    text-shadow:3px 3px 0 rgba(0,0,0,0.2);
+    margin-bottom:12px;
+  }
+  .hero p{
+    font-size:clamp(1rem,3vw,1.3rem);
+    color:rgba(255,255,255,0.9);
+    font-style:italic;font-weight:600;
+    margin-bottom:30px;
+  }
+  .btn-shop{
+    background:linear-gradient(135deg,var(--coral),var(--sand));
+    color:#fff;border:none;border-radius:50px;
+    padding:16px 40px;font-size:1.15rem;
+    font-family:'Nunito',sans-serif;font-weight:800;
+    cursor:pointer;text-decoration:none;display:inline-block;
+    box-shadow:0 6px 25px rgba(255,107,107,0.5);
+    transition:transform 0.2s,box-shadow 0.2s;
+    letter-spacing:0.5px;
+  }
+  .btn-shop:hover{transform:translateY(-3px);box-shadow:0 10px 35px rgba(255,107,107,0.6)}
+  .waves{
+    position:absolute;bottom:0;left:0;right:0;
+    overflow:hidden;line-height:0;
+  }
+  .waves svg{display:block;width:100%}
+
+  /* ── SECTION TITLE ── */
+  .section-title{
+    font-family:'Pacifico',cursive;
+    font-size:clamp(1.6rem,5vw,2.5rem);
+    color:var(--ocean);text-align:center;
+    margin-bottom:8px;
+  }
+  .section-sub{
+    text-align:center;color:#5a8fa8;
+    font-style:italic;margin-bottom:28px;font-size:0.95rem;
+  }
+
+  /* ── CAROUSEL ── */
+  #products{padding:60px 0 40px}
+  .carousel-wrap{
+    overflow:hidden;
+    padding:10px 0 20px;
+  }
+  .carousel-track{
+    display:flex;gap:20px;
+    padding:0 24px;
+    transition:transform 0.5s cubic-bezier(.4,0,.2,1);
+  }
+  .card{
+    min-width:220px;max-width:220px;
+    background:#fff;border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 4px 20px rgba(0,119,182,0.12);
+    transition:transform 0.25s,box-shadow 0.25s;
+    flex-shrink:0;
+    display:flex;flex-direction:column;
+  }
+  .card:hover{transform:translateY(-6px);box-shadow:0 12px 32px rgba(0,119,182,0.22)}
+  .card img{
+    width:100%;height:180px;object-fit:cover;
+    display:block;
+  }
+  .card-body{padding:14px;flex:1;display:flex;flex-direction:column;gap:6px}
+  .card-name{font-weight:800;font-size:0.95rem;color:var(--dark)}
+  .card-cat{font-size:0.75rem;color:var(--sky);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+  .card-price{font-family:'Pacifico',cursive;color:var(--coral);font-size:1.1rem;margin-top:auto}
+  .btn-add{
+    background:linear-gradient(135deg,var(--ocean),var(--sky));
+    color:#fff;border:none;border-radius:50px;
+    padding:9px 0;width:100%;font-size:0.9rem;
+    font-family:'Nunito',sans-serif;font-weight:800;
+    cursor:pointer;margin-top:10px;
+    transition:transform 0.15s,opacity 0.15s;
+  }
+  .btn-add:active{transform:scale(0.95);opacity:0.85}
+  .btn-add.added{background:linear-gradient(135deg,#2ecc71,#1abc9c)}
+  .carousel-nav{
+    display:flex;justify-content:center;gap:12px;margin-top:16px;
+  }
+  .carousel-nav button{
+    background:var(--ocean);color:#fff;border:none;
+    border-radius:50%;width:38px;height:38px;
+    font-size:1.1rem;cursor:pointer;
+    transition:background 0.2s,transform 0.15s;
+  }
+  .carousel-nav button:hover{background:var(--coral);transform:scale(1.1)}
+
+  /* ── GRID SECTION ── */
+  #all-products{padding:40px 0 60px}
+  .filter-bar{
+    display:flex;flex-wrap:wrap;justify-content:center;gap:10px;
+    padding:0 20px;margin-bottom:28px;
+  }
+  .filter-btn{
+    background:#e0f4fc;color:var(--ocean);
+    border:2px solid var(--sky);border-radius:50px;
+    padding:7px 18px;font-family:'Nunito',sans-serif;
+    font-weight:700;font-size:0.85rem;cursor:pointer;
+    transition:all 0.2s;
+  }
+  .filter-btn.active,.filter-btn:hover{
+    background:var(--ocean);color:#fff;border-color:var(--ocean);
+  }
+  .product-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+    gap:20px;padding:0 20px;
+    max-width:1100px;margin:0 auto;
+  }
+  @media(min-width:600px){.product-grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}}
+
+  /* ── CART ICON ── */
+  .cart-fab{
+    position:fixed;bottom:80px;right:20px;z-index:200;
+    background:linear-gradient(135deg,var(--coral),var(--sand));
+    width:58px;height:58px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 4px 20px rgba(255,107,107,0.5);
+    cursor:pointer;border:none;
+    transition:transform 0.2s;
+  }
+  .cart-fab:hover{transform:scale(1.1)}
+  .cart-fab svg{width:26px;height:26px;fill:#fff}
+  .cart-badge{
+    position:absolute;top:-4px;right:-4px;
+    background:var(--dark);color:#fff;
+    border-radius:50%;width:22px;height:22px;
+    font-size:0.75rem;font-weight:800;
+    display:flex;align-items:center;justify-content:center;
+    display:none;
+  }
+
+  /* ── WA FLOAT ── */
+  .wa-fab{
+    position:fixed;bottom:16px;right:20px;z-index:200;
+    background:#25d366;
+    width:52px;height:52px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 4px 16px rgba(37,211,102,0.5);
+    text-decoration:none;
+    transition:transform 0.2s;
+  }
+  .wa-fab:hover{transform:scale(1.1)}
+  .wa-fab svg{width:28px;height:28px;fill:#fff}
+
+  /* ── CART MODAL ── */
+  .overlay{
+    display:none;position:fixed;inset:0;z-index:300;
+    background:rgba(0,20,40,0.55);backdrop-filter:blur(4px);
+  }
+  .overlay.open{display:flex;align-items:flex-end;justify-content:center}
+  @media(min-width:600px){.overlay.open{align-items:center}}
+  .cart-modal{
+    background:#fff;border-radius:28px 28px 0 0;
+    width:100%;max-width:500px;
+    max-height:85vh;overflow-y:auto;
+    padding:28px 20px 20px;
+    animation:slideUp 0.35s ease;
+  }
+  @media(min-width:600px){.cart-modal{border-radius:28px;max-height:80vh}}
+  @keyframes slideUp{from{transform:translateY(60px);opacity:0}to{transform:translateY(0);opacity:1}}
+  .cart-header{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-bottom:20px;
+  }
+  .cart-header h2{font-family:'Pacifico',cursive;color:var(--ocean);font-size:1.4rem}
+  .close-btn{
+    background:var(--foam);border:none;border-radius:50%;
+    width:34px;height:34px;font-size:1.2rem;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--dark);transition:background 0.2s;
+  }
+  .close-btn:hover{background:var(--coral);color:#fff}
+  .cart-items{display:flex;flex-direction:column;gap:12px}
+  .cart-item{
+    display:flex;align-items:center;gap:12px;
+    background:#f0faff;border-radius:16px;padding:12px;
+  }
+  .cart-item img{width:52px;height:52px;border-radius:10px;object-fit:cover}
+  .cart-item-info{flex:1}
+  .cart-item-name{font-weight:800;font-size:0.9rem}
+  .cart-item-price{font-size:0.8rem;color:var(--coral);font-weight:700}
+  .qty-ctrl{display:flex;align-items:center;gap:8px;margin-top:6px}
+  .qty-btn{
+    background:var(--ocean);color:#fff;border:none;
+    border-radius:50%;width:26px;height:26px;
+    font-size:0.9rem;cursor:pointer;font-weight:800;
+    transition:background 0.2s;
+  }
+  .qty-btn:hover{background:var(--coral)}
+  .qty-num{font-weight:800;font-size:0.95rem;min-width:20px;text-align:center}
+  .remove-btn{
+    background:none;border:none;color:#bbb;cursor:pointer;
+    font-size:1.1rem;transition:color 0.2s;
+  }
+  .remove-btn:hover{color:var(--coral)}
+  .cart-subtotal{
+    display:flex;justify-content:space-between;
+    font-size:0.85rem;color:#888;margin-top:4px;
+  }
+  .cart-footer{
+    margin-top:20px;border-top:2px solid var(--foam);padding-top:16px;
+  }
+  .grand-total{
+    display:flex;justify-content:space-between;align-items:center;
+    font-weight:800;font-size:1.1rem;margin-bottom:16px;
+  }
+  .grand-total span:last-child{font-family:'Pacifico',cursive;color:var(--coral);font-size:1.3rem}
+  .btn-checkout{
+    width:100%;background:linear-gradient(135deg,var(--ocean),var(--sky));
+    color:#fff;border:none;border-radius:50px;
+    padding:15px;font-family:'Nunito',sans-serif;
+    font-size:1rem;font-weight:800;cursor:pointer;
+    transition:transform 0.2s,box-shadow 0.2s;
+  }
+  .btn-checkout:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,119,182,0.4)}
+  .empty-cart{
+    text-align:center;padding:30px 0;
+    color:#aaa;font-style:italic;font-size:1rem;
+  }
+  .empty-cart span{font-size:2.5rem;display:block;margin-bottom:10px}
+
+  /* ── ORDER FORM ── */
+  .order-form{display:none;margin-top:16px}
+  .order-form.open{display:block}
+  .form-title{
+    font-family:'Pacifico',cursive;
+    color:var(--ocean);font-size:1.1rem;margin-bottom:14px;
+  }
+  .form-group{margin-bottom:12px}
+  .form-group label{display:block;font-weight:700;font-size:0.85rem;margin-bottom:4px;color:var(--dark)}
+  .form-group input,.form-group textarea{
+    width:100%;padding:10px 14px;
+    border:2px solid var(--foam);border-radius:12px;
+    font-family:'Nunito',sans-serif;font-size:0.9rem;
+    outline:none;transition:border-color 0.2s;
+    background:#f8fdff;
+  }
+  .form-group input:focus,.form-group textarea:focus{border-color:var(--ocean)}
+  .form-group textarea{resize:vertical;min-height:70px}
+  .btn-place{
+    width:100%;background:linear-gradient(135deg,var(--coral),var(--sand));
+    color:#fff;border:none;border-radius:50px;
+    padding:14px;font-family:'Nunito',sans-serif;
+    font-size:1rem;font-weight:800;cursor:pointer;
+    transition:transform 0.2s,box-shadow 0.2s;margin-top:8px;
+  }
+  .btn-place:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,107,107,0.4)}
+  .btn-place:disabled{opacity:0.6;cursor:not-allowed;transform:none}
+  .success-msg{
+    background:linear-gradient(135deg,#e0fff4,#b8f5e0);
+    border:2px solid #2ecc71;border-radius:16px;
+    padding:20px;text-align:center;margin-top:12px;display:none;
+  }
+  .success-msg h3{font-family:'Pacifico',cursive;color:#2ecc71;margin-bottom:8px;font-size:1.1rem}
+  .success-msg p{font-size:0.9rem;color:var(--dark)}
+  .success-msg a{color:var(--ocean);font-weight:800}
+
+  /* ── FOOTER ── */
+  footer{
+    background:var(--dark);color:rgba(255,255,255,0.75);
+    text-align:center;padding:28px 20px;font-size:0.85rem;
+  }
+  footer strong{color:var(--sand);font-family:'Pacifico',cursive;font-size:1rem}
+  footer a{color:var(--foam);text-decoration:none}
+
+  /* ── TOAST ── */
+  .toast{
+    position:fixed;bottom:150px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--dark);color:#fff;
+    padding:10px 22px;border-radius:50px;font-weight:700;font-size:0.9rem;
+    opacity:0;pointer-events:none;transition:all 0.3s;z-index:500;white-space:nowrap;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div>
+    <div class="logo">🌊 Sassy</div>
+    <div class="tagline">Cool Bottles Delivered to Your Door</div>
+  </div>
+  <div class="header-right">
+    <a class="wa-header" href="https://wa.me/918133888545" target="_blank">
+      💬 WhatsApp
+    </a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="hero-badge">🏖️ Summer Vibes Only</div>
+    <h1>Stay Cool,<br/>Stay Sassy</h1>
+    <p>Fresh bottles delivered right to your door in Guwahati!</p>
+    <a class="btn-shop" href="#products">Shop Now 🛍️</a>
+  </div>
+  <div class="waves">
+    <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path fill="#f0faff" d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z"/>
+    </svg>
+  </div>
+</section>
+
+<!-- CAROUSEL -->
+<section id="products">
+  <div class="section-title" style="padding:0 20px">🌊 Our Cool Picks</div>
+  <div class="section-sub">Swipe or click the arrows to explore</div>
+  <div class="carousel-wrap">
+    <div class="carousel-track" id="carouselTrack"></div>
+  </div>
+  <div class="carousel-nav">
+    <button onclick="slide(-1)" aria-label="Previous">&#8592;</button>
+    <button onclick="slide(1)" aria-label="Next">&#8594;</button>
+  </div>
+</section>
+
+<!-- PRODUCT GRID -->
+<section id="all-products">
+  <div class="section-title">All Products</div>
+  <div class="section-sub">Filter by category below</div>
+  <div class="filter-bar" id="filterBar"></div>
+  <div class="product-grid" id="productGrid"></div>
+</section>
+
+<!-- CART FAB -->
+<button class="cart-fab" onclick="openCart()" aria-label="Open Cart">
+  <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM5.1 4H2V2H0v2h2l3.6 7.6L4.3 14c-.2.3-.3.7-.3 1 0 1.1.9 2 2 2h14v-2H6.4c-.1 0-.2-.1-.2-.2l.1-.4.9-1.4H19c.8 0 1.4-.4 1.8-1l3.5-6.3c.4-.8-.1-1.7-1-1.7H5.1z"/></svg>
+  <span class="cart-badge" id="cartBadge">0</span>
+</button>
+
+<!-- WA FAB -->
+<a class="wa-fab" href="https://wa.me/918133888545" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M20.5 3.5A12 12 0 0 0 3.5 20.5L2 22l1.5-1.5A12 12 0 1 0 20.5 3.5zM12 21a9 9 0 1 1 9-9 9 9 0 0 1-9 9zm4.7-6.8c-.3-.1-1.6-.8-1.8-.9s-.4-.1-.6.1l-.8.9c-.1.2-.3.2-.5.1a6.9 6.9 0 0 1-3.6-3.1c-.1-.3 0-.5.1-.6l.5-.6c.1-.2.1-.3 0-.5l-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.8.4A4.2 4.2 0 0 0 7 11.3c0 2.5 1.8 4.9 2.1 5.3s3.6 5.5 8.7 3.1a4.5 4.5 0 0 0 2-3.5c.1-.5-.2-.7-.5-.8"/></svg>
+</a>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- CART OVERLAY -->
+<div class="overlay" id="overlay" onclick="closeCartOutside(event)">
+  <div class="cart-modal" id="cartModal">
+    <div class="cart-header">
+      <h2>🛒 Your Cart</h2>
+      <button class="close-btn" onclick="closeCart()">✕</button>
+    </div>
+    <div id="cartItems"></div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="grand-total">
+        <span>Grand Total</span>
+        <span id="grandTotal">₹0</span>
+      </div>
+      <button class="btn-checkout" id="checkoutBtn" onclick="showOrderForm()">Proceed to Order →</button>
+    </div>
+    <div class="order-form" id="orderForm">
+      <div class="form-title">📦 Delivery Details</div>
+      <form id="orderFormEl">
+        <!-- Formspree hidden fields will be injected by JS -->
+        <div class="form-group">
+          <label>Your Name *</label>
+          <input type="text" id="custName" required placeholder="e.g. Rahul Sharma"/>
+        </div>
+        <div class="form-group">
+          <label>Phone Number *</label>
+          <input type="tel" id="custPhone" required placeholder="10-digit mobile number"/>
+        </div>
+        <div class="form-group">
+          <label>Delivery Address *</label>
+          <input type="text" id="custAddress" required placeholder="House no., Street, Area, City"/>
+        </div>
+        <div class="form-group">
+          <label>Special Instructions</label>
+          <textarea id="custNote" placeholder="Any special request? (optional)"></textarea>
+        </div>
+        <button type="button" class="btn-place" id="placeBtn" onclick="submitOrder()">🎉 Place Order</button>
+      </form>
+      <div class="success-msg" id="successMsg">
+        <h3>🎉 Order Placed!</h3>
+        <p>Sassy will contact you on WhatsApp to confirm your order!<br/>
+          <a href="https://wa.me/918133888545" target="_blank">Chat with us on WhatsApp →</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <strong>Sassy</strong><br/>
+  📍 Guwahati, Assam &nbsp;|&nbsp; 📞 <a href="tel:8133888545">8133888545</a> &nbsp;|&nbsp;
+  ✉️ <a href="mailto:connect2jahangirmd@gmail.com">connect2jahangirmd@gmail.com</a><br/><br/>
+  <span style="font-size:0.8rem;opacity:0.6">© 2026 Sassy. Cool Bottles, Happy Days. 🌊</span>
+</footer>
+
+<script>
+// ─── PRODUCTS DATA ───────────────────────────────────────
+const PRODUCTS = [
+  {id:1,name:"Sensy Bottle 1L – Ocean Blue",price:1000,cat:"Bottles",img:"https://i.ibb.co/D0mnsWB/IMG-20260407-104035603-HDR.jpg"},
+  {id:2,name:"Sensy Bottle 1L – Coral Crush",price:1000,cat:"Bottles",img:"https://i.ibb.co/D0mnsWB/IMG-20260407-104035603-HDR.jpg"},
+  {id:3,name:"Sensy Bottle 1L – Sky Drift",price:1000,cat:"Bottles",img:"https://i.ibb.co/D0mnsWB/IMG-20260407-104035603-HDR.jpg"},
+  {id:4,name:"Sensy Bottle 1L – Sandy Shore",price:1000,cat:"Bottles",img:"https://i.ibb.co/D0mnsWB/IMG-20260407-104035603-HDR.jpg"},
+  {id:5,name:"Sensy Bottle 1L – Foam White",price:1000,cat:"Bottles",img:"https://i.ibb.co/D0mnsWB/IMG-20260407-104035603-HDR.jpg"},
+  {id:6,name:"Sensy Bottle 1L – Lagoon Green",price:1000,cat:"Bottles",img:"https://i.ibb.co/D0mnsWB/IMG-20260407-104035603-HDR.jpg"},
+  {id:7,name:"Sensy Bottle 1L – Sunset Orange",price:1000,cat:"Bottles",img:"https://i.ibb.co/D0mnsWB/IMG-20260407-104035603-HDR.jpg"},
+  {id:8,name:"Sensy Bottle 1L – Deep Sea",price:1000,cat:"Bottles",img:"https://i.ibb.co/D0mnsWB/IMG-20260407-104035603-HDR.jpg"},
+  {id:9,name:"Sensy Bottle 1L – Breeze Mist",price:1000,cat:"Bottles",img:"https://i.ibb.co/D0mnsWB/IMG-20260407-104035603-HDR.jpg"},
+  {id:10,name:"Sensy Bottle 1L – Aqua Glow",price:1000,cat:"Bottles",img:"https://i.ibb.co/D0mnsWB/IMG-20260407-104035603-HDR.jpg"},
+];
+
+// ─── CART STATE ──────────────────────────────────────────
+let cart = JSON.parse(localStorage.getItem('sassy_cart')||'[]');
+let activeFilter = 'All';
+
+// ─── CAROUSEL ────────────────────────────────────────────
+let carouselIndex = 0;
+function buildCarousel(){
+  const track = document.getElementById('carouselTrack');
+  track.innerHTML = PRODUCTS.map(p=>`
+    <div class="card">
+      <img src="${p.img}" alt="${p.name}" loading="lazy"/>
+      <div class="card-body">
+        <div class="card-cat">${p.cat}</div>
+        <div class="card-name">${p.name}</div>
+        <div class="card-price">₹${p.price.toLocaleString()}</div>
+        <button class="btn-add" onclick="addToCart(${p.id},this)">Add to Cart 🛒</button>
+      </div>
+    </div>
+  `).join('');
+}
+function slide(dir){
+  const track = document.getElementById('carouselTrack');
+  const cards = track.querySelectorAll('.card');
+  const cardW = cards[0].offsetWidth + 20;
+  carouselIndex = Math.max(0, Math.min(carouselIndex + dir, cards.length - 2));
+  track.style.transform = `translateX(-${carouselIndex * cardW}px)`;
+}
+
+// ─── PRODUCT GRID ─────────────────────────────────────────
+function buildFilters(){
+  const cats = ['All',...new Set(PRODUCTS.map(p=>p.cat))];
+  const bar = document.getElementById('filterBar');
+  bar.innerHTML = cats.map(c=>`
+    <button class="filter-btn${c==='All'?' active':''}" onclick="filterProducts('${c}',this)">${c}</button>
+  `).join('');
+}
+function filterProducts(cat, btn){
+  activeFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderGrid();
+}
+function renderGrid(){
+  const filtered = activeFilter==='All'?PRODUCTS:PRODUCTS.filter(p=>p.cat===activeFilter);
+  const grid = document.getElementById('productGrid');
+  grid.innerHTML = filtered.map(p=>`
+    <div class="card">
+      <img src="${p.img}" alt="${p.name}" loading="lazy"/>
+      <div class="card-body">
+        <div class="card-cat">${p.cat}</div>
+        <div class="card-name">${p.name}</div>
+        <div class="card-price">₹${p.price.toLocaleString()}</div>
+        <button class="btn-add" onclick="addToCart(${p.id},this)">Add to Cart 🛒</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ─── CART LOGIC ───────────────────────────────────────────
+function addToCart(id, btn){
+  const p = PRODUCTS.find(x=>x.id===id);
+  const existing = cart.find(x=>x.id===id);
+  if(existing) existing.qty++;
+  else cart.push({...p,qty:1});
+  saveCart();
+  updateBadge();
+  btn.textContent='✅ Added!';btn.classList.add('added');
+  setTimeout(()=>{btn.textContent='Add to Cart 🛒';btn.classList.remove('added')},1200);
+  showToast(`${p.name.split('–')[0].trim()} added! 🎉`);
+}
+function saveCart(){localStorage.setItem('sassy_cart',JSON.stringify(cart))}
+function updateBadge(){
+  const total = cart.reduce((a,b)=>a+b.qty,0);
+  const badge = document.getElementById('cartBadge');
+  badge.style.display = total?'flex':'none';
+  badge.textContent = total;
+}
+function openCart(){
+  document.getElementById('overlay').classList.add('open');
+  renderCart();
+}
+function closeCart(){document.getElementById('overlay').classList.remove('open')}
+function closeCartOutside(e){if(e.target===document.getElementById('overlay'))closeCart()}
+function renderCart(){
+  const el = document.getElementById('cartItems');
+  const footer = document.getElementById('cartFooter');
+  const orderForm = document.getElementById('orderForm');
+  orderForm.classList.remove('open');
+  document.getElementById('successMsg').style.display='none';
+  document.getElementById('orderFormEl').style.display='block';
+  if(!cart.length){
+    el.innerHTML=`<div class="empty-cart"><span>🛒</span>Your cart is empty!<br/><small>Add some cool bottles above.</small></div>`;
+    footer.style.display='none';return;
+  }
+  el.innerHTML=`<div class="cart-items">${cart.map(item=>`
+    <div class="cart-item">
+      <img src="${item.img}" alt="${item.name}" loading="lazy"/>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-price">₹${item.price.toLocaleString()} each</div>
+        <div class="qty-ctrl">
+          <button class="qty-btn" onclick="changeQty(${item.id},-1)">−</button>
+          <span class="qty-num">${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty(${item.id},1)">+</button>
+        </div>
+        <div class="cart-subtotal"><span>Subtotal</span><span>₹${(item.price*item.qty).toLocaleString()}</span></div>
+      </div>
+      <button class="remove-btn" onclick="removeItem(${item.id})" title="Remove">🗑️</button>
+    </div>
+  `).join('')}</div>`;
+  const grand = cart.reduce((a,b)=>a+b.price*b.qty,0);
+  document.getElementById('grandTotal').textContent=`₹${grand.toLocaleString()}`;
+  footer.style.display='block';
+}
+function changeQty(id,d){
+  const item=cart.find(x=>x.id===id);
+  if(!item)return;
+  item.qty+=d;
+  if(item.qty<=0)cart=cart.filter(x=>x.id!==id);
+  saveCart();updateBadge();renderCart();
+}
+function removeItem(id){
+  cart=cart.filter(x=>x.id!==id);
+  saveCart();updateBadge();renderCart();
+}
+function showOrderForm(){
+  document.getElementById('checkoutBtn').style.display='none';
+  document.getElementById('orderForm').classList.add('open');
+}
+function submitOrder(){
+  const name=document.getElementById('custName').value.trim();
+  const phone=document.getElementById('custPhone').value.trim();
+  const addr=document.getElementById('custAddress').value.trim();
+  const note=document.getElementById('custNote').value.trim();
+  if(!name||!phone||!addr){showToast('Please fill all required fields ⚠️');return}
+  const grand=cart.reduce((a,b)=>a+b.price*b.qty,0);
+  const items=cart.map(i=>`• ${i.name} × ${i.qty} = ₹${(i.price*i.qty).toLocaleString()}`).join('\n');
+  const body=`🛒 NEW ORDER — Sassy\n\n📦 ORDER DETAILS:\n${items}\n\n💰 Grand Total: ₹${grand.toLocaleString()}\n\n👤 Customer Details:\nName: ${name}\nPhone: ${phone}\nAddress: ${addr}\nInstructions: ${note||'None'}\n\nPlease confirm with the customer on WhatsApp.`;
+  const btn=document.getElementById('placeBtn');
+  btn.disabled=true;btn.textContent='Sending...';
+  // Send via Formspree
+  const formData=new FormData();
+  formData.append('name',name);
+  formData.append('phone',phone);
+  formData.append('email','customer@order.com');
+  formData.append('message',body);
+  fetch('https://formspree.io/f/xqegnbdk',{method:'POST',body:formData,headers:{Accept:'application/json'}})
+    .then(r=>r.json())
+    .then(d=>{
+      if(d.ok||d.next){
+        document.getElementById('orderFormEl').style.display='none';
+        document.getElementById('successMsg').style.display='block';
+        cart=[];saveCart();updateBadge();
+        document.getElementById('checkoutBtn').style.display='block';
+        document.getElementById('checkoutBtn').textContent='New Order →';
+      } else {
+        showToast('Something went wrong. Please WhatsApp us! 💬');
+        btn.disabled=false;btn.textContent='🎉 Place Order';
+      }
+    })
+    .catch(()=>{
+      showToast('Network error. Please WhatsApp us directly! 💬');
+      btn.disabled=false;btn.textContent='🎉 Place Order';
+    });
+}
+
+// ─── TOAST ────────────────────────────────────────────────
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+// ─── INIT ─────────────────────────────────────────────────
+buildCarousel();
+buildFilters();
+renderGrid();
+updateBadge();
+</script>
+</body>
+</html>
